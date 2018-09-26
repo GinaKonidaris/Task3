@@ -176,6 +176,30 @@ namespace POEGADE18013130
                 health -= ((RangedUnit)u).attack;
 
             }
+            else if((u.GetType() == typeof(TwoHandedUnits)))
+            {
+                health -= ((TwoHandedUnits)u).attack;
+                health -= ((TwoHandedUnits)u).attack;
+
+            }
+            else if (u.GetType() == typeof(ProphetsUnit))
+            {
+                health -= ((ProphetsUnit)u).attack;
+                health -= ((ProphetsUnit)u).attack;
+
+            }
+            else if (u.GetType() == typeof(DoctorsUnit))
+            {
+                health -= ((DoctorsUnit)u).attack;
+                health -= ((DoctorsUnit)u).attack;
+
+            }
+            else if (u.GetType() == typeof(AssasinUnit))
+            {
+                health -= ((AssasinUnit)u).attack;
+                health -= ((AssasinUnit)u).attack;
+
+            }
 
         }
         public override bool Inranged(Unit u)//This checks if meleeunit is inrange of other units on the field.

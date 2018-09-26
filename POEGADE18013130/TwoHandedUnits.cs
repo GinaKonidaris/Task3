@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace POEGADE18013130
 {
-    class RangedUnit : Unit
+    class TwoHandedUnits :Unit
     {
         private new string Name;
 
@@ -78,7 +78,7 @@ namespace POEGADE18013130
             get { return Symbol; }
             set { Symbol = value; }
         }
-        public override void Move(Direction d) //tells ranged unit which direction to move towards.
+        public override void Move(Direction d) //tells Two Handed unit which direction to move towards.
         {
             switch (d)
             {
@@ -105,7 +105,7 @@ namespace POEGADE18013130
             }
         }
 
-        public RangedUnit(int x, int y, int speed, int Range, int Health, int Team, string symbol, int attack, string name)//All of ranged units information.
+        public TwoHandedUnits(int x, int y, int speed, int Range, int Health, int Team, string symbol, int attack, string name)//All of ranged units information.
         {
 
             Xpos -= x;
@@ -121,9 +121,9 @@ namespace POEGADE18013130
 
         private int DistanceTo(Unit u)// checks ranged unit distance to the other unirs
         {
-            if (u.GetType() == typeof(MeleeUnit))
+            if (u.GetType() == typeof(TwoHandedUnits))
             {
-                MeleeUnit n = (MeleeUnit)u;
+                TwoHandedUnits n = (TwoHandedUnits)u;
                 int d = (Xpos - n.xpos) + Math.Abs(Ypos - n.ypos);
                 return d;
             }
@@ -135,9 +135,9 @@ namespace POEGADE18013130
 
         public Direction DirectionTo(Unit u)
         {
-            if (u.GetType() == typeof(RangedUnit))
+            if (u.GetType() == typeof(TwoHandedUnits))
             {
-                RangedUnit n = (RangedUnit)u;
+                TwoHandedUnits n = (TwoHandedUnits)u;
                 if (n.Xpos < n.Ypos)
                 {
                     return Direction.North;
@@ -160,11 +160,11 @@ namespace POEGADE18013130
                 return Direction.North;
             }
         }
-        public override void Combat(Unit u)// checks rangedunit in combat
+        public override void Combat(Unit u)// checks Two Handed unit in combat
         {
-            if (u.GetType() == typeof(RangedUnit))
+            if (u.GetType() == typeof(TwoHandedUnits))
             {
-                health -= ((RangedUnit)u).Attack;
+                health -= ((TwoHandedUnits)u).Attack;
 
             }
             else if (u.GetType() == typeof(MeleeUnit))
@@ -173,10 +173,10 @@ namespace POEGADE18013130
                 health -= ((MeleeUnit)u).attack;
 
             }
-            else if ((u.GetType() == typeof(TwoHandedUnits)))
+            else if(u.GetType()== typeof(RangedUnit))
             {
-                health -= ((TwoHandedUnits)u).attack;
-                health -= ((TwoHandedUnits)u).attack;
+                health -= ((RangedUnit)u).attack;
+                health -= ((RangedUnit)u).attack;
 
             }
             else if (u.GetType() == typeof(ProphetsUnit))
@@ -201,9 +201,9 @@ namespace POEGADE18013130
         }
         public override bool Inranged(Unit u)// checks to see if the other unit is inrange for combat
         {
-            if (u.GetType() == typeof(RangedUnit))
+            if (u.GetType() == typeof(TwoHandedUnits))
             {
-                RangedUnit n = (RangedUnit)u;
+                TwoHandedUnits n = (TwoHandedUnits)u;
                 if (DistanceTo(u) <= range)
                 {
                     return true;
@@ -215,7 +215,7 @@ namespace POEGADE18013130
             }
             return false;
         }
-        public override Unit Closest(Unit[] units)// checks to see which unit the ranged unit is closest to
+        public override Unit Closest(Unit[] units)// checks to see which unit the Two handed unit is closest to
         {
             Unit closest = this;
             int closestDistance = 50;
@@ -224,12 +224,12 @@ namespace POEGADE18013130
             {
                 //if (u.GetType() == typeof(MeleeUnit))
                 //{
-                if (((RangedUnit)u).team == team)
+                if (((TwoHandedUnits)u).team == team)
                 {
                     if (DistanceTo(u) < closestDistance)
                     {
                         closest = u;
-                        closestDistance = DistanceTo((RangedUnit)u);
+                        closestDistance = DistanceTo((TwoHandedUnits)u);
                     }
                 }
                 //}
@@ -244,7 +244,7 @@ namespace POEGADE18013130
             }
             return closest;
         }
-        public override bool Isdead()// checks to see if Ranged Unit is dead
+        public override bool Isdead()// checks to see if Two Handed Unit is dead
         {
             if (health < +0)
             {
@@ -255,9 +255,9 @@ namespace POEGADE18013130
                 return true;
             }
         }
-        public override string Tostring()//Displays the information of Ranged Unit to the user
+        public override string Tostring()//Displays the information of Two handed Unit to the user
         {
-            return "RU" + Xpos + "," + Ypos + "," + health + "," + Name;
+            return "THU" + Xpos + "," + Ypos + "," + health + "," + Name;
         }
 
     }

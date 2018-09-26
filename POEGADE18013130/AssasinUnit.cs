@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace POEGADE18013130
 {
-    class RangedUnit : Unit
+    class AssasinUnit : Unit
     {
         private new string Name;
 
@@ -78,7 +78,7 @@ namespace POEGADE18013130
             get { return Symbol; }
             set { Symbol = value; }
         }
-        public override void Move(Direction d) //tells ranged unit which direction to move towards.
+        public override void Move(Direction d) //tells Doctor unit which direction to move towards.
         {
             switch (d)
             {
@@ -105,7 +105,7 @@ namespace POEGADE18013130
             }
         }
 
-        public RangedUnit(int x, int y, int speed, int Range, int Health, int Team, string symbol, int attack, string name)//All of ranged units information.
+        public AssasinUnit(int x, int y, int speed, int Range, int Health, int Team, string symbol, int attack, string name)//All of Assassin units information.
         {
 
             Xpos -= x;
@@ -119,11 +119,11 @@ namespace POEGADE18013130
             Name = name;
         }
 
-        private int DistanceTo(Unit u)// checks ranged unit distance to the other unirs
+        private int DistanceTo(Unit u)// checks Assassin unit distance to the other unirs
         {
-            if (u.GetType() == typeof(MeleeUnit))
+            if (u.GetType() == typeof(AssasinUnit))
             {
-                MeleeUnit n = (MeleeUnit)u;
+                AssasinUnit n = (AssasinUnit)u;
                 int d = (Xpos - n.xpos) + Math.Abs(Ypos - n.ypos);
                 return d;
             }
@@ -133,11 +133,11 @@ namespace POEGADE18013130
             }
         }
 
-        public Direction DirectionTo(Unit u)
+        public Direction DirectionTo(Unit u)// The Direction inwhich this class will move
         {
-            if (u.GetType() == typeof(RangedUnit))
+            if (u.GetType() == typeof(AssasinUnit))
             {
-                RangedUnit n = (RangedUnit)u;
+                AssasinUnit n = (AssasinUnit)u;
                 if (n.Xpos < n.Ypos)
                 {
                     return Direction.North;
@@ -160,11 +160,11 @@ namespace POEGADE18013130
                 return Direction.North;
             }
         }
-        public override void Combat(Unit u)// checks rangedunit in combat
+        public override void Combat(Unit u)// checks Doctors unit in combat
         {
-            if (u.GetType() == typeof(RangedUnit))
+            if (u.GetType() == typeof(AssasinUnit))
             {
-                health -= ((RangedUnit)u).Attack;
+                health -= ((AssasinUnit)u).Attack;
 
             }
             else if (u.GetType() == typeof(MeleeUnit))
@@ -173,7 +173,13 @@ namespace POEGADE18013130
                 health -= ((MeleeUnit)u).attack;
 
             }
-            else if ((u.GetType() == typeof(TwoHandedUnits)))
+            else if (u.GetType() == typeof(RangedUnit))
+            {
+                health -= ((RangedUnit)u).attack;
+                health -= ((RangedUnit)u).attack;
+
+            }
+            else if (u.GetType() == typeof(TwoHandedUnits))
             {
                 health -= ((TwoHandedUnits)u).attack;
                 health -= ((TwoHandedUnits)u).attack;
@@ -191,19 +197,14 @@ namespace POEGADE18013130
                 health -= ((DoctorsUnit)u).attack;
 
             }
-            else if (u.GetType() == typeof(AssasinUnit))
-            {
-                health -= ((AssasinUnit)u).attack;
-                health -= ((AssasinUnit)u).attack;
 
-            }
 
         }
-        public override bool Inranged(Unit u)// checks to see if the other unit is inrange for combat
+        public override bool Inranged(Unit u)// checks to see if the other unit for combat
         {
-            if (u.GetType() == typeof(RangedUnit))
+            if (u.GetType() == typeof(ASCIIEncoding))
             {
-                RangedUnit n = (RangedUnit)u;
+                AssasinUnit n = (AssasinUnit)u;
                 if (DistanceTo(u) <= range)
                 {
                     return true;
@@ -215,7 +216,7 @@ namespace POEGADE18013130
             }
             return false;
         }
-        public override Unit Closest(Unit[] units)// checks to see which unit the ranged unit is closest to
+        public override Unit Closest(Unit[] units)// checks to see which unit the assasin unit is closest to
         {
             Unit closest = this;
             int closestDistance = 50;
@@ -224,7 +225,7 @@ namespace POEGADE18013130
             {
                 //if (u.GetType() == typeof(MeleeUnit))
                 //{
-                if (((RangedUnit)u).team == team)
+                if (((AssasinUnit)u).team == team)
                 {
                     if (DistanceTo(u) < closestDistance)
                     {
@@ -244,7 +245,7 @@ namespace POEGADE18013130
             }
             return closest;
         }
-        public override bool Isdead()// checks to see if Ranged Unit is dead
+        public override bool Isdead()// checks to see if Assasin Unit is dead
         {
             if (health < +0)
             {
@@ -255,10 +256,9 @@ namespace POEGADE18013130
                 return true;
             }
         }
-        public override string Tostring()//Displays the information of Ranged Unit to the user
+        public override string Tostring()//Displays the information of Assasin Unit to the user
         {
-            return "RU" + Xpos + "," + Ypos + "," + health + "," + Name;
+            return "AU" + Xpos + "," + Ypos + "," + health + "," + Name;
         }
-
     }
 }

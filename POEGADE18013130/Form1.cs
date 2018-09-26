@@ -59,10 +59,10 @@ namespace POEGADE18013130
                     {
                         b.ForeColor = Color.Red;
                     }
-                    else
+                    else 
                     {
                         b.ForeColor = Color.Green;
-                    }
+                    }               
                     if (n.Isdead()) //if the type of unit is dead it will change the unit to black
                     {
                         b.ForeColor = Color.Black;
